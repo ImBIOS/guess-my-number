@@ -4,6 +4,7 @@ import {
   checkGuess,
   validateGuess,
   parseDifficulty,
+  parseMaxAttempts,
   DIFFICULTY_RANGES,
 } from "./game";
 
@@ -64,4 +65,21 @@ test("DIFFICULTY_RANGES has correct values", () => {
   expect(DIFFICULTY_RANGES.easy).toEqual({ min: 1, max: 10 });
   expect(DIFFICULTY_RANGES.medium).toEqual({ min: 1, max: 50 });
   expect(DIFFICULTY_RANGES.hard).toEqual({ min: 1, max: 100 });
+});
+
+test("parseMaxAttempts returns Infinity when no arg", () => {
+  expect(parseMaxAttempts(undefined)).toBe(Infinity);
+});
+
+test("parseMaxAttempts parses valid numbers", () => {
+  expect(parseMaxAttempts("5")).toBe(5);
+  expect(parseMaxAttempts("10")).toBe(10);
+  expect(parseMaxAttempts("100")).toBe(100);
+});
+
+test("parseMaxAttempts rejects invalid input", () => {
+  expect(parseMaxAttempts("abc")).toBe(Infinity);
+  expect(parseMaxAttempts("0")).toBe(Infinity);
+  expect(parseMaxAttempts("-1")).toBe(Infinity);
+  expect(parseMaxAttempts("")).toBe(Infinity);
 });

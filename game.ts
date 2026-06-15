@@ -26,3 +26,10 @@ export function parseDifficulty(arg: string): Difficulty | null {
   if (arg in DIFFICULTY_RANGES) return arg as Difficulty;
   return null;
 }
+
+export function parseMaxAttempts(arg: string | undefined): number {
+  if (!arg) return Infinity;
+  const n = parseInt(arg, 10);
+  if (isNaN(n) || n < 1) return Infinity;
+  return n;
+}
